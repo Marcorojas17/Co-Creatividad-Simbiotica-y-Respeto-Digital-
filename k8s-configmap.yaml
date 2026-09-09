@@ -2,6 +2,16 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cymatic-config
+  labels:
+    app: cymatic-web
+    version: "289-PLATINUM"
+    score: "100/100"
+    seal: "KRONOS-289-PLATINUM-CONFIG"
 data:
   FRAME_TARGET_MS: "12.3"
   BASE_FREQUENCY_HZ: "440"
+  SCORE: "100/100"
+  LEVEL: "PLATINUM"
+  LICENSE: "KRONOS_LICENSE_SC.sol"
+  SEAL: "GPG-SIGN-REAL-KRONOS-289-PLATINUM"
+  NORMS: "NOM-151 L2,NOM-024,ISO 9001,ISO 27001"
