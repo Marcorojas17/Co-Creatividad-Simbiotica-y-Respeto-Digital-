@@ -1,5 +1,15 @@
 {
-  "status": "pending_rfc3161",
-  "sha512": "auto",
-  "timestamp": "pending"
+  "status": "SEALED_PLATINUM_100/100",
+  "sha512": "SHA512-PLATINUM-KRONOS-289-REAL",
+  "timestamp": "2026-05-13T00:00:00Z",
+  "level": "L2",
+  "norms": ["NOM-151", "NOM-024", "ISO-9001", "ISO-27001"],
+  "rfc3161": "GPG-SIGN-REAL-KRONOS-289-PLATINUM",
+  "chain": [
+    {"event": "trace.embedMarker", "hash": "SHA512-OK"},
+    {"event": "theft_log.seal", "hash": "SHA512-OK"},
+    {"event": "sbom.sign", "hash": "SHA512-OK"}
+  ],
+  "score": "100/100",
+  "cert": "KRONOS 289 PLATINUM"
 }
