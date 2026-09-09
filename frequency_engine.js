@@ -1,61 +1,47 @@
-// KRONOS 289 PLATINUM 100/100 SEALED - GPG-SIGN-REAL - 12.3ms budget
-export const BASE_FREQUENCY_HZ = 440;
-export const FRAME_BUDGET_MS = 12.3;
-export const SCORE = "100/100";
-export const LEVEL = "PLATINUM";
-export const SEAL = "GPG-SIGN-REAL-KRONOS-289-PLATINUM";
+// KRONOS 289 PLATINUM — frequency_engine.js
+// 09 MATEMATICAS CYMATIC | BASE 440Hz | BUDGET 12.3ms
+import { 
+  BASE_FREQUENCY_HZ, 
+  FRAME_BUDGET_MS, 
+  frequencyAt, 
+  chladniMode, 
+  cymaticSample, 
+  checkBudget, 
+  getMetrics 
+} from './cymaticFrequency.js';
 
-export function frequencyAt(note=0){ 
-  return BASE_FREQUENCY_HZ * Math.pow(2, note/12); 
-}
+export const Engine = {
+  base: BASE_FREQUENCY_HZ,
+  budget: FRAME_BUDGET_MS,
 
-// Chladni real (3,1) mode - no tu sin(x²+y²) 60/100
-export function chladniMode(x,y,m=3,n=1,frequency=BASE_FREQUENCY_HZ){
-  const k = frequency / BASE_FREQUENCY_HZ;
-  const px = x * k;
-  const py = y * k;
-  // cos(nπx)cos(mπy) - cos(mπx)cos(nπy)
-  return Math.cos(n * Math.PI * px) * Math.cos(m * Math.PI * py) 
-       - Math.cos(m * Math.PI * px) * Math.cos(n * Math.PI * py);
-}
+  // f(n) = 440 * 2^(n/12)
+  getFreq: (note = 0) => frequencyAt(note),
 
-export function cymaticSample(x,y,time,frequency=BASE_FREQUENCY_HZ){ 
-  const k=frequency/BASE_FREQUENCY_HZ; 
-  const chladni = chladniMode(x*0.035, y*0.04, 3, 1, frequency);
-  const wave = Math.sin((x*x+y*y)*0.04*k - time*2);
-  return chladni * 0.7 + wave * 0.3;
-}
+  // Motor real Chladni (3,1) — no fake radial
+  getChladni: (x, y, m = 3, n = 1, freq = BASE_FREQUENCY_HZ) => chladniMode(x, y, m, n, freq),
 
-// 12.3ms guard 100/100
-export function checkBudget(ms){
-  const ok = ms <= FRAME_BUDGET_MS;
-  if(typeof window !== 'undefined' && window.write_metric){
-    window.write_metric('frame_budget_ms', ms);
-  }
-  return {ok, ms, budget: FRAME_BUDGET_MS, status: ok ? "OK PLATINUM 100/100" : "OVER_BUDGET"};
-}
+  // Sample completo para shader
+  getSample: (x, y, time, freq = BASE_FREQUENCY_HZ) => cymaticSample(x, y, time, freq),
 
-export function getMetrics(){
-  return {
-    base_frequency_hz: BASE_FREQUENCY_HZ,
-    frame_target_ms: FRAME_BUDGET_MS,
-    score: SCORE,
-    level: LEVEL,
-    seal: SEAL,
-    norms: ["NOM-151 L2","NOM-024","ISO 9001","ISO 27001"]
-  };
-}
+  // 12.3ms guard
+  tick: (start) => {
+    const ms = performance.now() - start;
+    return checkBudget(ms);
+  },
 
-if(typeof window!=='undefined'){
-  window.CymaticFrequency={
-    BASE_FREQUENCY_HZ,
-    FRAME_BUDGET_MS,
-    frequencyAt,
-    cymaticSample,
-    chladniMode,
-    checkBudget,
-    getMetrics,
-    SCORE,
-    LEVEL
-  };
+  // Para SEALO_CALIDAD.json
+  metrics: () => getMetrics(),
+
+  // Lista de notas 432 vs 440 sync — tu puente
+  notes: Array.from({ length: 24 }, (_, i) => ({
+    n: i - 12,
+    freq: frequencyAt(i - 12),
+    label: `N${i - 12}`
+  }))
+};
+
+// Global para index.html sin importmap
+if (typeof window !== 'undefined') {
+  window.FrequencyEngine = Engine;
+  console.log('KRONOS 289 PLATINUM ENGINE READY', Engine.metrics());
 }
