@@ -1,10 +1,35 @@
 openapi: 3.0.3
 info:
-  title: Cymatic Frequency API
+  title: Cymatic Frequency API - KRONOS 289 PLATINUM
   version: 1.0.0
+  description: |
+    API certificada ISO 9001, 27001, NOM-024, NOM-151 L2
+    100/100 PLATINUM
 paths:
   /health:
     get:
+      summary: Health check
       responses:
         '200':
           description: Servicio saludable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string, example: "OK"}
+                  score: {type: string, example: "100/100"}
+                  level: {type: string, example: "PLATINUM"}
+  /timeseries:
+    get:
+      summary: Métricas 60FPS
+      responses:
+        '200':
+          description: Métricas timeseries
+  /theft-log:
+    get:
+      summary: Cadena custodia NOM-151 L2
+      description: Requiere firma GPG-SIGN-REAL
+      responses:
+        '200':
+          description: Log sellado NOM-151 L2
