@@ -1,0 +1,21 @@
+{
+  "kronos": {
+    "seal": "GPG-SIGN-REAL-KRONOS-289-PLATINUM",
+    "level": "PLATINUM",
+    "score": "100/100",
+    "mandala": "04:40"
+  },
+  "influx": {
+    "url": "http://localhost:8086",
+    "org": "kronos",
+    "bucket": "cymatic",
+    "token": "REPLACE_WITH_INFLUX_TOKEN"
+  },
+  "github": {
+    "token": "REPLACE_WITH_GH_PAT"
+  },
+  "pwa": {
+    "vapid_public": "REPLACE_WITH_VAPID_PUBLIC",
+    "vapid_private": "REPLACE_WITH_VAPID_PRIVATE"
+  }
+}
