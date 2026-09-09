@@ -1,17 +1,93 @@
-<!doctype html>
-<html lang="es">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#000000">
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="stylesheet" href="./design-system/glass.css">
-<title>Sin conexión - KRONOS 289 PLATINUM</title>
-<body class="glass">
-<h1>Modo offline - 100/100 PLATINUM</h1>
-<p>La experiencia cymática volverá cuando se restablezca la conexión.</p>
-<p><small>Cache: cymatic-v1-PLATINUM-289 | NOM-024, NOM-151 L2, ISO 9001, 27001</small></p>
-<script>
-if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js');}
-</script>
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offline ◍ KRONOS</title>
+  <base href="./" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100%;
+      height: 100vh;
+      background: #070708;
+      color: #ececec;
+      display: grid;
+      place-items: center;
+      font-family: ui-monospace, monospace;
+      text-align: center;
+      padding: 24px;
+    }
+    .card {
+      max-width: 420px;
+      padding: 36px;
+      border-radius: 24px;
+      background: rgba(20, 20, 20, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.12) inset, 0 24px 80px rgba(0,0,0,0.7);
+    }
+    h1 {
+      font-size: 12px;
+      color: #d4af37;
+      letter-spacing: 0.18em;
+    }
+    p {
+      margin-top: 16px;
+      color: #888;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .btn {
+      margin-top: 20px;
+      display: inline-block;
+      border: 1px solid #d4af37;
+      background: #d4af37;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn:hover {
+      background: #e2c05a;
+      transform: scale(1.02);
+    }
+    .dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #5cff7a;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #5cff7a;
+      animation: pulse 2s infinite;
+      margin-right: 6px;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 9.5px;
+      color: #5a5a5a;
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1><span class="dot"></span>◍ OFFLINE — KRONOS-28-ITZA v0.4.0</h1>
+    <p>Sin señal. El lienzo está en caché.<br>Respeto Digital — la autoridad tranquila sigue activa offline.</p>
+    <a class="btn" href="./index.html">VOLVER A INDEX</a>
+    <div class="footer">B+ SUPER • Co-Creatividad Simbiótica</div>
+  </div>
 </body>
 </html>
