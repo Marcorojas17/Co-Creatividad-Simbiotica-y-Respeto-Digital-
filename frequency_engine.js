@@ -10,6 +10,8 @@ import {
   getMetrics 
 } from './cymaticFrequency.js';
 
+import { trackFrame } from './data/timeseries.js';
+
 export const Engine = {
   base: BASE_FREQUENCY_HZ,
   budget: FRAME_BUDGET_MS,
@@ -23,9 +25,10 @@ export const Engine = {
   // Sample completo para shader
   getSample: (x, y, time, freq = BASE_FREQUENCY_HZ) => cymaticSample(x, y, time, freq),
 
-  // 12.3ms guard
+  // 12.3ms guard + telemetry 99.99%
   tick: (start) => {
     const ms = performance.now() - start;
+    trackFrame(ms);
     return checkBudget(ms);
   },
 
