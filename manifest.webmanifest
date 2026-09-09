@@ -1,32 +1,50 @@
 {
-  "name": "Co-Creatividad Simbiótica y Respeto Digital - KRONOS 289 PLATINUM",
-  "short_name": "Cymatic",
-  "start_url": "./",
+  "name": "KRONOS-28-ITZA-CYMATIC-ELITE",
+  "short_name": "KRONOS",
+  "description": "La Autoridad Tranquila de los Autores. Motor cimático, cada vida es un primer borrador que vale la pena revisar con cuidado.",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#07111f",
-  "theme_color": "#d6a84f",
-  "description": "PWA certificada ISO 9001, 27001, NOM-024, NOM-151 L2 - 100/100 PLATINUM",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
   "orientation": "any",
+  "theme_color": "#0a0a0a",
+  "background_color": "#0a0a0a",
+  "lang": "es-MX",
+  "dir": "ltr",
+  "id": "kronos-28-itza-cymatic-elite",
+  "categories": ["productivity", "creativity", "lifestyle"],
   "icons": [
-    {
-      "src": "./icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    { "src": "./assets/icons/icon-72.png", "sizes": "72x72", "type": "image/png", "purpose": "any" },
+    { "src": "./assets/icons/icon-96.png", "sizes": "96x96", "type": "image/png", "purpose": "any" },
+    { "src": "./assets/icons/icon-128.png", "sizes": "128x128", "type": "image/png", "purpose": "any" },
+    { "src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "screenshots": [
+    { "src": "./assets/screenshots/desktop.png", "sizes": "1280x720", "type": "image/png", "form_factor": "wide", "label": "KRONOS Desktop — Motor Cimático" },
+    { "src": "./assets/screenshots/mobile.png", "sizes": "720x1280", "type": "image/png", "form_factor": "narrow", "label": "KRONOS Mobile — Autor de tu historia" }
   ],
   "shortcuts": [
-    {
-      "name": "Modo Offline",
-      "url": "./offline.html",
-      "description": "Experiencia cymática offline"
+    { "name": "Nuevo Borrador", "short_name": "Borrador", "description": "Revisar con cuidado tu primer borrador", "url": "./index.html?action=new", "icons": [{ "src": "./assets/icons/shortcut-new.png", "sizes": "96x96" }] },
+    { "name": "Lienzo Cimático", "short_name": "Cimática", "description": "Abrir motor cimático", "url": "./index.html?action=cymatic", "icons": [{ "src": "./assets/icons/shortcut-cymatic.png", "sizes": "96x96" }] }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": { "preferred_width": 400 },
+  "launch_handler": { "client_mode": "navigate-existing" },
+  "handle_links": "preferred",
+  "file_handlers": [
+    { "action": "./index.html", "accept": { "text/plain": [".kronos", ".txt"] } }
+  ],
+  "share_target": {
+    "action": "./index.html?share-target",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [{ "name": "cymatic-file", "accept": ["text/plain", ".kronos"] }]
     }
-  ]
+  }
 }
