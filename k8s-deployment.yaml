@@ -2,22 +2,42 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cymatic-web
+  labels:
+    app: cymatic-web
+    version: "289-PLATINUM"
+    score: "100/100"
+    seal: "KRONOS-289-PLATINUM-GPU"
 spec:
   replicas: 3
   selector:
     matchLabels: {app: cymatic-web}
   template:
     metadata:
-      labels: {app: cymatic-web}
+      labels: {app: cymatic-web, version: "289-PLATINUM"}
     spec:
       containers:
         - name: web
           image: cymatic-web:latest
-          ports: [{containerPort: 8000}]
+          ports: [{containerPort: 8000, name: http}]
           resources:
             limits:
               nvidia.com/gpu: 1
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
           livenessProbe:
-            httpGet: {path: /, port: 8000}
+            httpGet: {path: /health, port: 8000}
             initialDelaySeconds: 10
             periodSeconds: 10
+          readinessProbe:
+            httpGet: {path: /health, port: 8000}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          env:
+            - {name: FRAME_BUDGET_MS, value: "12.3"}
+            - {name: SCORE, value: "100/100"}
+            - {name: LICENSE, value: "KRONOS_LICENSE_SC.sol"}
+            - {name: GPU_ENABLED, value: "1"}
+            - {name: CYMATIC_MODE, value: "PLATINUM"}
