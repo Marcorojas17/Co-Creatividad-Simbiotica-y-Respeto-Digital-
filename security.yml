@@ -1,0 +1,14 @@
+name: Security
+on: [push, pull_request]
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    permissions: {contents: write}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: cyclonedx-json
+          output-file: compliance/SBOM.json
+      - run: python tools/audit.py

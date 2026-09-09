@@ -1,0 +1,10 @@
+name: GPG Sign
+on: workflow_dispatch
+jobs:
+  sign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: chmod +x security/gpg_sign_engine.sh && security/gpg_sign_engine.sh data/theft_log.json
+        env:
+          GPG_TTY: /dev/console

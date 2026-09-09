@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cymatic-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels: {app: cymatic-web}
+  template:
+    metadata:
+      labels: {app: cymatic-web}
+    spec:
+      containers:
+        - name: web
+          image: cymatic-web:latest
+          ports: [{containerPort: 8000}]
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+          livenessProbe:
+            httpGet: {path: /, port: 8000}
+            initialDelaySeconds: 10
+            periodSeconds: 10

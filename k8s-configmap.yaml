@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cymatic-config
+data:
+  FRAME_TARGET_MS: "12.3"
+  BASE_FREQUENCY_HZ: "440"

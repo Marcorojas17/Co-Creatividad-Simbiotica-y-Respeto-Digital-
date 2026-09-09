@@ -1,0 +1,10 @@
+{
+  "name": "Co-Creatividad Simbiótica",
+  "short_name": "Cymatic",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#d6a84f",
+  "icons": []
+}
