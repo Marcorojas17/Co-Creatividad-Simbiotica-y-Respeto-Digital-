@@ -1,6 +1,13 @@
+# KRONOS-28-ITZA v0.4.1 — Python deps
+# 09 MATEMATICAS CYMATIC
+
 pyserial>=3.5
 influxdb-client>=1.40
 pytest>=8.0
 cyclonedx-bom>=4.0
 python-dotenv>=1.0
 pycryptodome>=3.18
+
+# Core engine
+numpy>=1.26
+python-dateutil>=2.9
