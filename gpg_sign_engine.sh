@@ -10,7 +10,7 @@ echo "== KRONOS GPG SIGN $SEAL =="
 
 # SHA512 real (128 caracteres)
 SHA=$(sha512sum $FILE | awk '{print $1}')
-echo "SHA512: $SHA"
+echo "🔹 SHA512: $SHA"
 
 # Actualiza JSON con jq si existe
 if command -v jq &> /dev/null; then
@@ -26,6 +26,7 @@ fi
 if gpg --list-secret-keys | grep -q "KRONOS"; then
   gpg --armor --detach-sign $FILE
   echo "✅ Firmado: $ASC_FILE VERIFIED"
+  
   # NOM-151 chain
   mkdir -p security
   echo "{\"timestamp\":\"$(date -u --iso-8601=seconds)\",\"file\":\"$FILE\",\"sha512\":\"$SHA\",\"seal\":\"$SEAL\",\"asc\":\"$ASC_FILE\",\"nom151\":\"L2\"}" >> $CHAIN
