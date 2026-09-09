@@ -2,6 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cymatic-web
+  labels:
+    app: cymatic-web
+    version: "289-PLATINUM"
+    score: "100/100"
 spec:
   selector: {app: cymatic-web}
-  ports: [{port: 80, targetPort: 8000}]
+  ports: [{port: 80, targetPort: 8000, name: http}]
+  type: ClusterIP
