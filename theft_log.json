@@ -1,4 +1,14 @@
 {
   "events": [],
-  "schema_version": "1.0"
+  "schema_version": "1.0",
+  "nom151": {
+    "level": "L2",
+    "chain_file": "security/nom151_chain.json",
+    "signature_file": "data/theft_log.json.asc",
+    "status": "PENDING_CI_SIGN"
+  },
+  "integrity": {
+    "sha512": "auto-generated-by-gpg_sign_engine.sh",
+    "last_signed": null
+  }
 }
