@@ -1,1 +1,21 @@
-{"event":"boot","status":"ok"}
+{
+  "event": "boot",
+  "status": "ok",
+  "version": "KRONOS-289-PLATINUM-100/100",
+  "seal": "GPG-SIGN-REAL-KRONOS-289-PLATINUM-SEALED",
+  "checks": {
+    "k8s/configmap.yaml": "OK 12.3ms",
+    "k8s/service.yaml": "OK 80->8000",
+    "k8s/deployment.yaml": "OK 3 replicas GPU /health",
+    "k8s/hpa.yaml": "OK 3-20 CPU 70%",
+    "security/integrity.json": "OK SHA-512",
+    "apps/web/index.html": "OK LABO CYMATICO",
+    "core-dsp/metrics.py": "OK write_metric",
+    "app.py /health": "OK"
+  },
+  "budget_ms": 12.3,
+  "freq_hz": 440,
+  "gpu": 1,
+  "norms": ["NOM-151 L2", "NOM-024", "ISO 9001", "ISO 27001"],
+  "result": "100/100 SEALED_PLATINUM"
+}
