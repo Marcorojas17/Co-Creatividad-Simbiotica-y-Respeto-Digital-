@@ -1,42 +1,46 @@
-# ─── Auto-detect text files ───
-* text=auto
+# ─── Normalización: forzar LF en todos los textos ───
+* text=auto eol=lf
 
-# ─── Force LF for all text files ───
-*.js text eol=lf
-*.ts text eol=lf
-*.html text eol=lf
-*.css text eol=lf
-*.json text eol=lf
-*.yml text eol=lf
-*.yaml text eol=lf
-*.md text eol=lf
-*.txt text eol=lf
-*.sh text eol=lf
-*.py text eol=lf
+# ─── Archivos de texto conocidos ───
+*.html text
+*.js text
+*.css text
+*.json text
+*.webmanifest text
+*.md text
+*.txt text
+*.xml text
+*.svg text diff
+*.vert text
+*.frag text
+*.py text
+*.sh text
+*.yml text
+*.yaml text
+*.toml text
+*.editorconfig text
 
-# ─── Binary files (do not modify) ───
+# ─── Archivos binarios ───
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.gif binary
 *.ico binary
-*.svg binary
+*.webp binary
 *.pdf binary
 *.zip binary
 *.gz binary
 *.tar binary
 *.wasm binary
 
-# ─── Linguist overrides (GitHub stats) ───
-*.js linguist-language=JavaScript
-*.html linguist-language=HTML
-*.css linguist-language=CSS
-*.json linguist-language=JSON
-*.py linguist-language=Python
-*.vert linguist-language=GLSL
-*.frag linguist-language=GLSL
-
-# ─── Exclude generated files from diff ───
+# ─── No mostrar diff en archivos generados ───
 package-lock.json -diff
+yarn.lock -diff
+pnpm-lock.yaml -diff
 *.min.js -diff
 *.min.css -diff
+
+# ─── PWA / GLSL ───
+*.webmanifest text eol=lf
+*.vert text eol=lf linguist-language=GLSL
+*.frag text eol=lf linguist-language=GLSL
