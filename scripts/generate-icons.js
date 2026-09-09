@@ -19,7 +19,6 @@ const OUTPUT_DIR = './';
 
 // Tamaños requeridos por el manifest
 const SIZES = [192, 512];
-
 // SVG base con el diseño gold ◍
 const svgTemplate = (size) => `
 <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
