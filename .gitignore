@@ -68,3 +68,13 @@ assets/screenshots/
 *.backup
 *.old
 *.orig
+
+# ─── SECURITY: NUNCA SUBIR TOKENS ───
+tokens.json
+.env
+__pycache__/
+*.key
+*.pem
+*.crt
+*.priv
+*.secret
