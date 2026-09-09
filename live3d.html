@@ -1,50 +1,176 @@
-<!doctype html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="es-MX">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#d6a84f">
-<meta name="description" content="Co-Creatividad Simbiótica y Respeto Digital - KRONOS 289 PLATINUM 100/100 ISO 9001, 27001, NOM-024, NOM-151 L2">
-<title>Cymatic 3D - KRONOS 289 PLATINUM 100/100</title>
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="stylesheet" href="./design-system/glass.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <title>LIVE 3D ◍ KRONOS-28-ITZA v0.4.0</title>
+  <meta name="description" content="KRONOS-28-ITZA-CYMATIC-ELITE — Motor cimático 3D en vivo" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <base href="./" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{width:100%;height:100%;background:#070708;overflow:hidden;font-family:ui-monospace,monospace}
+    #c{position:fixed;inset:0;width:100%;height:100%;display:block}
+    #ui{position:fixed;inset:0;z-index:2;pointer-events:none;display:grid;place-items:end center;padding:20px 20px 28px}
+    .bar{pointer-events:auto;display:flex;gap:10px;align-items:center;background:rgba(18,18,18,0.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:8px 10px 8px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.6)}
+    .bar .status{font-size:10px;letter-spacing:0.12em;color:#d4af37;display:flex;align-items:center;gap:6px}
+    .bar .dot{display:inline-block;width:6px;height:6px;background:#5cff7a;border-radius:50%;box-shadow:0 0 6px #5cff7a;flex-shrink:0}
+    .bar a{border:1px solid rgba(255,255,255,0.12);background:rgba(0,0,0,0.4);color:#aaa;padding:8px 14px;border-radius:999px;font-size:10px;text-decoration:none;transition:.2s;font-family:inherit;cursor:pointer}
+    .bar a:hover{border-color:#d4af37;color:#d4af37}
+    .bar a.primary{background:#d4af37;color:#000;font-weight:700;border-color:#d4af37}
+    .bar a.primary:hover{background:#e2c05a}
+    #loader{position:fixed;inset:0;z-index:5;background:#070708;display:grid;place-items:center;color:#d4af37;font-size:11px;letter-spacing:0.18em;transition:opacity.6s}
+    @media(max-width:480px){.bar{padding:6px 8px 6px 12px;gap:6px;flex-wrap:wrap;justify-content:center;border-radius:20px}
+    .bar .status{font-size:9px}
+    .bar a{padding:6px 10px;font-size:9px}}
+  </style>
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
 <body>
-<main class="glass">
-<p class="eyebrow">CO-CREATIVIDAD SIMBIÓTICA · 100/100 PLATINUM</p>
-<h1>Cymatic 3D</h1>
-<p>Visualizador cymático en tiempo real · frecuencia base <strong id="freq">440 Hz</strong> · Budget <strong>12.3ms</strong></p>
-<canvas id="cymatic" width="900" height="520"></canvas>
-<div class="controls">
-<label>Frecuencia <input id="slider" type="range" min="40" max="880" value="440"></label>
-<button id="toggle">Pausar</button>
-</div>
-<p id="status">Simulación activa - SEALED_PLATINUM</p>
-<p><small>NOM-024 | NOM-151 L2 | ISO 9001, 27001 | <a href="./offline.html">Modo offline</a> | Score: 100/100</small></p>
-</main>
-<script type="module">
-import { frame_budget_ms } from './core-dsp/frequency_engine.js';
-import { embedMarker } from './security/trace.js';
-console.log("KRONOS 289 PLATINUM", frame_budget_ms(), embedMarker("INIT"));
-</script>
-<script>
-const c=document.querySelector('#cymatic'),x=c.getContext('2d'),s=document.querySelector('#slider'),f=document.querySelector('#freq'),b=document.querySelector('#toggle');let run=true,t=0;
-function draw(){
- if(run){
-  t+=.02;
-  x.fillStyle='#07111f';x.fillRect(0,0,c.width,c.height);
-  for(let i=0;i<900;i+=3){
-   let px=i%900,py=Math.floor(i/900)*3;
-   let v=Math.sin(px*.035+t*3)*Math.cos(py*.04-t*2);
-   if(v>.72){x.fillStyle='rgba(255,206,92,.8)';x.fillRect(px,py,2,2)}
-  }
- }
- requestAnimationFrame(draw)
-}
-s.oninput=()=>{f.textContent=s.value+' Hz'};
-b.onclick=()=>{run=!run;b.textContent=run?'Pausar':'Reanudar'};
-draw();
-if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js');}
-</script>
+  <canvas id="c" role="img" aria-label="Lienzo cimático 3D de KRONOS"></canvas>
+  <div id="loader" role="status" aria-live="polite">◍ KRONOS-28-ITZA — cargando lienzo cimático...</div>
+  <div id="ui">
+    <nav class="bar" aria-label="Navegación KRONOS">
+      <span class="status" id="st" aria-live="polite">
+        <span class="dot" aria-hidden="true"></span> ◍ BOOT • v0.4.0
+      </span>
+      <a href="./live.html" aria-label="Ir a la página de señal en vivo">LIVE</a>
+      <a href="./index.html" class="primary" aria-label="Volver al inicio">INDEX</a>
+    </nav>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+
+    const canvas=document.getElementById('c');
+    const loader=document.getElementById('loader');
+    const st=document.getElementById('st');
+
+    try {
+      const scene=new THREE.Scene();
+      scene.background=new THREE.Color(0x070708);
+
+      const camera=new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 100);
+      camera.position.set(0,1.2,3.2);
+
+      const renderer=new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+      renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+      renderer.setSize(innerWidth, innerHeight);
+
+      addEventListener('resize', ()=>{
+        camera.aspect=innerWidth/innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(innerWidth,innerHeight);
+      });
+
+      // ─── Cymatic shader — B+ SUPER gold waves ───
+      const geo=new THREE.PlaneGeometry(8,8,128,128);
+      const mat=new THREE.ShaderMaterial({
+        uniforms:{
+          uTime:{value:0},
+          uColor:{value:new THREE.Color(0xd4af37)}
+        },
+        vertexShader:`
+          uniform float uTime;
+          varying vec2 vUv;
+          varying float vH;
+          void main(){
+            vUv=uv;
+            vec3 p=position;
+            float d=length(p.xy);
+            float w1=sin(d*3.0 - uTime*1.2)*0.25;
+            float w2=sin(d*6.0 - uTime*2.0 + p.x*1.5)*0.12;
+            float w3=cos(d*2.0 + uTime*0.8)*0.18 * exp(-d*0.6);
+            p.z += w1+w2+w3;
+            vH=p.z;
+            gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.0);
+          }
+        `,
+        fragmentShader:`
+          uniform vec3 uColor;
+          varying float vH;
+          varying vec2 vUv;
+          void main(){
+            float h=clamp(vH*1.5+0.5,0.0,1.0);
+            vec3 col=mix(vec3(0.03), uColor, h*0.7 + 0.1);
+            float glow=smoothstep(0.8,0.0,length(vUv-0.5))*0.18;
+            col+=glow*uColor;
+            float alpha=0.85;
+            gl_FragColor=vec4(col,alpha);
+          }
+        `,
+        wireframe:false,
+        transparent:false
+      });
+
+      const mesh=new THREE.Mesh(geo,mat);
+      mesh.rotation.x=-Math.PI*0.42;
+      scene.add(mesh);
+
+      // ─── Lights ───
+      scene.add(new THREE.AmbientLight(0xffffff,0.25));
+      const dir=new THREE.DirectionalLight(0xd4af37,0.6);
+      dir.position.set(2,3,2);
+      scene.add(dir);
+
+      // ─── Particles ───
+      const pg=new THREE.BufferGeometry();
+      const pc=600;
+      const pos=new Float32Array(pc*3);
+      for(let i=0;i<pc*3;i++) pos[i]=(Math.random()-0.5)*6;
+      pg.setAttribute('position', new THREE.BufferAttribute(pos,3));
+      const pm=new THREE.PointsMaterial({
+        color:0xd4af37,
+        size:0.018,
+        transparent:true,
+        opacity:0.5
+      });
+      scene.add(new THREE.Points(pg,pm));
+
+      // ─── Animation loop ───
+      let t=0;
+      function tick(){
+        t+=0.008;
+        mat.uniforms.uTime.value=t;
+        mesh.rotation.z=Math.sin(t*0.15)*0.08;
+        camera.position.x=Math.sin(t*0.12)*0.15;
+        camera.lookAt(0,0,0);
+        renderer.render(scene,camera);
+        requestAnimationFrame(tick);
+      }
+      tick();
+
+      // ─── UI state ───
+      setTimeout(()=>{
+        loader.style.opacity='0';
+        setTimeout(()=>loader.remove(), 600);
+        const now = new Date().toISOString().slice(11,19);
+        const online = navigator.onLine ? 'online' : 'offline';
+        st.innerHTML = `<span class="dot" aria-hidden="true"></span> LIVE 3D • ${online} • ${now} UTC • v0.4.0`;
+      }, 900);
+
+      // ─── Service Worker (con trazabilidad) ───
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js', { scope: './' })
+          .then(r => console.log('◍ SW registrado:', r.scope))
+          .catch(e => console.warn('◍ SW falló:', e));
+      }
+
+    } catch (err) {
+      console.error('◍ Error crítico en live3d:', err);
+      loader.textContent = '◍ Error al cargar el motor cimático. Recarga la página.';
+      loader.style.color = '#f44336';
+    }
+
+    // ─── SPA GitHub Pages fix (opcional) ───
+    (function(l){
+      if(l.search[1]==='/'){
+        const d=l.search.slice(1).split('&').map(s=>s.replace(/~and~/g,'&')).join('?');
+        history.replaceState(null,null,l.pathname.slice(0,-1)+d+l.hash);
+      }
+    })(location);
+  </script>
 </body>
 </html>
